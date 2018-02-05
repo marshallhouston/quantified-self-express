@@ -27,4 +27,30 @@ router.get('/:id', (req, res, next) => {
       }
     })
 })
+
+router.post('/', (req, res, next) => {
+  let food = req.body.food
+  if (!food) {
+    return res.status(400).send({
+      error: "The format should be { food : { name : foodName , calories : foodCalories } }"
+    })
+  }
+
+  let name = food.name
+  let calories = parseInt(food.calories)
+
+  if(!name || !calories) {
+    return res.status(400).send({
+      error: "Name and calories are required fields. { food : { name : foodName , calories : foodCalories } } "
+    })
+  }
+
+  database.raw(
+    'INSERT INTO foods (name, calories) VALUES (?, ?) RETURNING *',
+    [name, calories]
+  ).then( food => {
+    res.status(201).json(food.rows[0])
+  })
+})
+
 module.exports = router
