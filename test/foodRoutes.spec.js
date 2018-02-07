@@ -82,4 +82,23 @@ describe('API routes', () => {
       })
     })
   })
+
+  describe('PUT /api/v1/foods/:id', () => {
+    it('should update the food and return it as json', () => {
+      return chai.request(server)
+      .put('/api/v1/foods/2')
+      .send({ food : { name: 'Coffee', calories: 75 } })
+      .then(response => {
+        response.should.have.status(200)
+        response.should.be.json
+        response.body.should.be.a('object')
+        response.body.should.have.property('id')
+        response.body.id.should.equal(2)
+        response.body.should.have.property('name')
+        response.body.name.should.equal('Coffee')
+        response.body.should.have.property('calories')
+        response.body.calories.should.equal(75)
+      })
+    })
+  })
 })
