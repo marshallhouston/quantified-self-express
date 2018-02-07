@@ -45,3 +45,23 @@ describe('API routes', () => {
     })
   })
 
+  describe('GET /api/v1/foods/:id', () => {
+    it('should return a single food as json', () => {
+      return chai.request(server)
+      .get('/api/v1/foods/3')
+      .then(response => {
+        response.should.have.status(200)
+        response.should.be.json
+        response.body.should.be.a('object')
+        response.body.should.have.property('id')
+        response.body.id.should.equal(3)
+        response.body.should.have.property('name')
+        response.body.name.should.be.a('string')
+        response.body.should.have.property('calories')
+        response.body.calories.should.be.a('number')
+      }).catch(error => {
+        throw error
+      })
+    })
+  })
+
