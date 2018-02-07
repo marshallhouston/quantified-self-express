@@ -8,4 +8,6 @@ router.get('/:id', foodsController.show)
 
 router.post('/', foodsController.create)
 
+router.put('/:id', foodsController.update)
+
 module.exports = router
