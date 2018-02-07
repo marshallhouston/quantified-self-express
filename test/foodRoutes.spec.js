@@ -65,3 +65,21 @@ describe('API routes', () => {
     })
   })
 
+  describe('POST /api/v1/foods', () => {
+    it('should create a new food and return it as json', () => {
+      return chai.request(server)
+      .post('/api/v1/foods')
+      .send({ food : { name: 'Turtle Ice Cream', calories: 235 } })
+      .then(response => {
+        response.should.have.status(201)
+        response.should.be.json
+        response.body.should.be.a('object')
+        response.body.should.have.property('id')
+        response.body.should.have.property('name')
+        response.body.name.should.equal('Turtle Ice Cream')
+        response.body.should.have.property('calories')
+        response.body.calories.should.equal(235)
+      })
+    })
+  })
+})
