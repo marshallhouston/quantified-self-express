@@ -37,7 +37,7 @@ const create = (req, res, next) => {
 
   if(!name || !calories) {
     return res.status(400).send({
-      error: "Name and calories are required fields. { food : { name : foodName , calories : foodCalories } } "
+      error: "Name and calories are required fields. { food : { name : foodName , calories : foodCalories } }"
     })
   }
 
