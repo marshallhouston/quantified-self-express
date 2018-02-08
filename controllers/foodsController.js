@@ -48,7 +48,6 @@ const create = (req, res, next) => {
 }
 
 const update = (req, res, next) => {
-
   let food = req.body.food
   if (!food) {
     return res.status(400).send({
@@ -78,4 +77,30 @@ const update = (req, res, next) => {
     })
 }
 
-module.exports = {index, show, create, update}
+const destroy = (req, res, next) => {
+  let foodId = req.params.id
+
+  let mealCount = Food.hasMeals(foodId)
+
+  Promise.all([mealCount]).then((mealCount) => {
+    if (mealCount[0] === 0) {
+      Food.destroy(foodId)
+      .then(food => {
+        if(food.length === 0) {
+          res.sendStatus(404)
+        } else {
+          res.sendStatus(204)
+        }
+      })
+      .catch(error => {
+        throw error
+      })
+    } else {
+      return res.status(400).send({
+        error: "Cannot delete this food because it is associated with a meal. Delete the foods off the meals first before trying again."
+      })
+    }
+  })
+}
+
+module.exports = {index, show, create, update, destroy}
