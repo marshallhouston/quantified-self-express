@@ -16,6 +16,22 @@ const create = (req, res, next) => {
   })
 }
 
+const destroy = (req, res, next) => {
+  let mealId = req.params.mealId
+  let foodId = req.params.foodId
+
+  MealFood.delete(mealId, foodId)
+    .then(response => {
+      if(!response || response.length != 2) {
+        return res.status(404)
+      } else {
+        res.status(200).send({
+          message: `Successfully removed ${response[1].name} from ${response[0].name}`
+        })
+      }
+  })
+}
+
 module.exports = {
-  create,
+  create, destroy
 }
