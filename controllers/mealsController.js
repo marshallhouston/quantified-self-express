@@ -12,6 +12,19 @@ const index = (req, res, next) => {
   })
 }
 
+const show = (req, res, next) => {
+  var id = req.params.id
+
+  Meal.find(id)
+  .then(meal => {
+    if(!meal) {
+      return res.sendStatus(404)
+    } else {
+      return res.json(meal)
+    }
+  })
+}
+
 module.exports = {
   index,
 }
