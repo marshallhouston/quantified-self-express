@@ -22,12 +22,19 @@ const destroy = (req, res, next) => {
 
   let mealFood = MealFood.find(mealId, foodId)
 
+  Promise.all([mealFood])
+    .then(mealFood => {
+      if (!mealFood[0]) {
+        return res.sendStatus(404)
       } else {
-        res.status(200).send({
-          message: `Successfully removed ${response[1].name} from ${response[0].name}`
+        MealFood.delete(mealId, foodId)
+        .then(response => {
+          res.status(200).send({
+            message: `Successfully removed ${response[1].name} from ${response[0].name}`
+          })
         })
       }
-  })
+    })
 }
 
 module.exports = {
