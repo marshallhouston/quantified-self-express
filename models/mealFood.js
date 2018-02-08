@@ -29,7 +29,6 @@ const MealFood = {
       'DELETE FROM meal_foods WHERE meal_foods.meal_id = ? AND meal_foods.food_id = ? RETURNING *',
       [mealId, foodId]
     ).then((response) => {
-      // var pry = require('pryjs'); eval(pry.it)
       return database.raw('SELECT meals.name FROM meals WHERE meals.id = ? UNION SELECT foods.name FROM foods WHERE foods.id = ?',
       [mealId, foodId]
     ).then(mealAndFoodNames => {
