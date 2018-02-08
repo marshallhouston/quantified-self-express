@@ -124,5 +124,15 @@ describe('API routes', () => {
         throw error
       })
     })
+
+    it('should return status 404 when deleting foods not associated with a meal', () => {
+      return chai.request(server)
+      .delete('/api/v1/meals/1/foods/47')
+      .then(response => {
+        response.should.have.status(404)
+      }).catch(error => {
+        throw error
+      })
+    })
   })
 })
