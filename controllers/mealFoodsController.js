@@ -7,7 +7,7 @@ const create = (req, res, next) => {
   MealFood.create(mealId, foodId)
   .then(mealFood => {
     if(!mealFood) {
-      return res.status(404)
+      return res.sendStatus(404)
     } else {
       res.status(201).send({
         message: `Successfully added ${mealFood.food_name} to ${mealFood.meal_name}`
