@@ -53,6 +53,12 @@ describe('API routes', () => {
         response.body[3].name.should.equal("Dinner")
         response.body[3].foods.length.should.equal(1)
       })
+      .catch( error => {
+        throw error
+      })
+    })
+  })
+
   describe('POST /api/v1/meals/:meal_id/foods/:id', () => {
     it('creates a new record in the meal_foods table and returns a successful message', () => {
       return chai.request(server)
