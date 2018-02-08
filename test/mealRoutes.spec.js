@@ -79,4 +79,12 @@ describe('API routes', () => {
       })
     })
 
+    it('should return a 404 for meal records that do not exist', () => {
+      return chai.request(server)
+      .get('/api/v1/meals/8/foods')
+      .then(response => {
+        response.should.have.status(404)
+      })
+    })
+  })
 })
