@@ -36,6 +36,24 @@ const Food = {
       return food.rows[0]
     })
   },
+
+  destroy: (id) => {
+    return database.raw(
+      'DELETE FROM foods WHERE id = ? RETURNING *', id
+    ).then(food => {
+      return food.rows
+    })
+  },
+
+  hasMeals: (id) => {
+    return database.raw(
+      'SELECT f.id FROM foods f INNER JOIN meal_foods mf ON f.id = mf.food_id WHERE f.id = ?', id
+    ).then(foods => {
+      return foods.rows.length
+    }).catch(error => {
+      throw error
+    })
+  },
 }
 
 
