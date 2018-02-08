@@ -13,7 +13,7 @@ const index = (req, res, next) => {
 }
 
 const show = (req, res, next) => {
-  var id = req.params.id
+  let id = req.params.id
 
   Meal.find(id)
   .then(meal => {
