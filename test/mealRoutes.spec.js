@@ -55,4 +55,28 @@ describe('API routes', () => {
       })
     })
   })
+
+  describe('GET /api/v1/meals/:meal_id/foods', () => {
+    it('should return an array of all foods related to a given meal', () => {
+      return chai.request(server)
+      .get('/api/v1/meals/1/foods')
+      .then(response => {
+        response.should.have.status(200)
+        response.should.be.json
+        response.body.should.be.a('object')
+        response.body.should.have.property('id')
+        response.body.id.should.equal(1)
+        response.body.should.have.property('name')
+        response.body.name.should.equal("Breakfast")
+        response.body.should.have.property('foods')
+        response.body.foods.should.be.a('array')
+        response.body.foods[0].should.be.a('object')
+        response.body.foods[0].should.have.property('id')
+        response.body.foods[0].should.have.property('name')
+        response.body.foods[0].name.should.be.a('string')
+        response.body.foods[0].should.have.property('calories')
+        response.body.foods[0].calories.should.be.a('number')
+      })
+    })
+
 })
