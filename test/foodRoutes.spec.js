@@ -79,6 +79,8 @@ describe('API routes', () => {
         response.body.name.should.equal('Turtle Ice Cream')
         response.body.should.have.property('calories')
         response.body.calories.should.equal(235)
+      }).catch(error => {
+        throw error
       })
     })
   })
@@ -98,6 +100,31 @@ describe('API routes', () => {
         response.body.name.should.equal('Coffee')
         response.body.should.have.property('calories')
         response.body.calories.should.equal(75)
+      }).catch(error => {
+        throw error
+      })
+    })
+  })
+
+  describe('DELETE /api/v1/foods/:id', () => {
+    it('should delete the food and return a 204 when successfully deleted', () => {
+      return chai.request(server)
+      .delete('/api/v1/foods/5')
+      .then(response => {
+        response.should.have.status(204)
+        response.body.should.be.empty
+      }).catch(error => {
+        throw error
+      })
+    })
+
+    it('should return a 404 if the food does not exist', () => {
+      return chai.request(server)
+      .delete('/api/v1/foods/123533')
+      .then(response => {
+        response.should.have.status(404)
+      }).catch(error => {
+        throw error
       })
     })
   })
