@@ -10,6 +10,12 @@ var users = require('./routes/users');
 var foods = require('./routes/api/v1/foods')
 var meals = require('./routes/api/v1/meals')
 
+var allowCrossDomain = (req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+}
+
 var app = express();
 
 // view engine setup
@@ -23,6 +29,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(allowCrossDomain);
 
 app.use('/', index);
 app.use('/users', users);
