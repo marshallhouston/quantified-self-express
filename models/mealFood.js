@@ -3,6 +3,14 @@ const configuration = require('../knexfile')[environment]
 const database = require('knex')(configuration)
 
 const MealFood = {
+  find: (mealId, foodId) => {
+    return database.raw(
+    'SELECT * FROM meal_foods WHERE meal_foods.meal_id = ? AND meal_foods.food_id = ?', [mealId, foodId]
+    ).then(mealFood => {
+      return mealFood.rows[0]
+    })
+  },
+
   create: (mealId, foodId) => {
     return database.raw(
       'INSERT INTO meal_foods (meal_id, food_id) VALUES (?, ?) RETURNING *',
