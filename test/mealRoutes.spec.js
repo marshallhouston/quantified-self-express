@@ -110,4 +110,19 @@ describe('API routes', () => {
       })
     })
   })
+
+  describe('DELETE /api/v1/meals/:id/foods/:id', () => {
+    it('should remove the relationship between a meal and food', () => {
+      return chai.request(server)
+      .delete('/api/v1/meals/1/foods/1')
+      .then(response => {
+        response.should.have.status(200)
+        response.should.be.json
+        response.body.should.be.a('object')
+        response.body.message.should.include('Successfully removed')
+      }).catch(error => {
+        throw error
+      })
+    })
+  })
 })
