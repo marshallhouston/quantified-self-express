@@ -20,10 +20,8 @@ const destroy = (req, res, next) => {
   let mealId = req.params.mealId
   let foodId = req.params.foodId
 
-  MealFood.delete(mealId, foodId)
-    .then(response => {
-      if(!response || response.length != 2) {
-        return res.status(404)
+  let mealFood = MealFood.find(mealId, foodId)
+
       } else {
         res.status(200).send({
           message: `Successfully removed ${response[1].name} from ${response[0].name}`
