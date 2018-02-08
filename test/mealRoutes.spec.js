@@ -76,6 +76,8 @@ describe('API routes', () => {
         response.body.foods[0].name.should.be.a('string')
         response.body.foods[0].should.have.property('calories')
         response.body.foods[0].calories.should.be.a('number')
+      }).catch(error => {
+        throw error
       })
     })
 
@@ -84,6 +86,8 @@ describe('API routes', () => {
       .get('/api/v1/meals/8/foods')
       .then(response => {
         response.should.have.status(404)
+      }).catch(error => {
+        throw error
       })
     })
   })
