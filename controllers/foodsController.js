@@ -82,7 +82,7 @@ const destroy = (req, res, next) => {
 
   let mealCount = Food.hasMeals(foodId)
 
-  Promise.all([mealCount]).then((mealCount) => {
+  Promise.all([mealCount]).then(mealCount => {
     if (mealCount[0] === 0) {
       Food.destroy(foodId)
       .then(food => {
