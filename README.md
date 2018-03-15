@@ -2,7 +2,9 @@
 
 ## Quantified Self API
 
-This project is the backend to a wellness application found here [Quantified Self](https://github.com/izaxveta/quantified-self).
+This is the backend application to the JavaScript and jQuery frontend application https://marshallhouston.github.io/quantified-self/. 
+
+The source code for the frontend application is located https://github.com/marshallhouston/quantified-self.
 
 ## Getting Started
 
